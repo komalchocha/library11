@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\BookDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use App\Models\Bookcategory;
 use Illuminate\Http\Request;
 
@@ -21,11 +22,21 @@ class BookController extends Controller
     }
     public function store(Request $request)
     {
-        $category = BookCategory::create([
-            'name' => $request->name,
-            
+        $file = $request->image;
+        $extension = $file->getclientoriginalextension();
+        $filename = rand() . '_post.' . $extension;
+        $file->move('storage/image', $filename);
+        $category = Book::create([
+            'name' => $request->title,
+            'auther' => $request->auther,
+            'descreption' => $request->description,
+            'image' => $filename,
+            'category_id' => $request->categorie_name,
+            'books' => $request->books,
+
         ]);
         $category->save();
+
         session(['alert' => 'Insert Sucessfully', 'class' => 'alert alert-danger']);
 
         return redirect()->route('admin.book.category_view_list');
