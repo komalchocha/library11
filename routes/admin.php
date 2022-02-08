@@ -23,8 +23,10 @@ Route::group(['middleware' => 'auth:admin', ''], function () {
         Route::get('category_view_list', 'BookCategoryController@index')->name('category_view_list');
         Route::get('storeCategory', 'BookCategoryController@storeCategory')->name('storeCategory');
         Route::get('create_category', 'BookCategoryController@create')->name('create_category');
+        Route::post('destroy_category', 'BookCategoryController@destroy')->name('destroy_category');
         Route::get('book_view_list', 'BookController@index')->name('book_view_list');
         Route::get('create', 'BookController@create')->name('create');
+        Route::post('store_book', 'BookController@store')->name('store_book');
     });
 
 });

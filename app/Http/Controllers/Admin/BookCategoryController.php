@@ -29,4 +29,12 @@ class BookCategoryController extends Controller
         return redirect()->route('admin.book.category_view_list');
 
     }
+    public function destroy(Request $request)
+    {
+        BookCategory::where('id', $request->id)->delete();
+        return response()->json(['status' => true, 'message' => 'Delete Successfully']);
+    
+
+    }
+
 }

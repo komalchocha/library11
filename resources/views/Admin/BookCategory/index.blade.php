@@ -1,6 +1,3 @@
-<link href="{{ asset('plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 @extends('Admin.Layouts.master')
 
 
@@ -47,8 +44,32 @@
 </div>
 
 
-@endsection
 @push('page_scripts')
-
 {!! $dataTable->scripts() !!}
+<script>
+    $(document).on('click', '.category_delete', function() {
+        var id = $(this).attr('data-id');
+        var conf = confirm("Are you sure");
+
+        if (conf == true) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                url: "{{route('admin.book.destroy_category')}}",
+                method: 'POST',
+                data: {
+                    id: id,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    alert(data.message);
+                    window.LaravelDataTables["bookcategory-table"].draw();
+                }
+            });
+        }
+    });
+</script>
 @endpush
+
+@endsection

@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="card-header-actions">
-                        <a href="{{route('admin.book.create')}}" <button class="btn btn-primary btn-save float-right product" title="Add Category">Add</button></a>
+                        <a href="{{route('admin.book.create')}}"></a> <button class="btn btn-primary btn-save float-right product" title="Add Category">Add</button></a>
                     </div>
                 </div>
             </div>

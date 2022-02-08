@@ -4,7 +4,7 @@
 <div class="content">
     <div class="content-header">
         <div class="container-fluid">
-            <form id="carete_book" action="" method="POST" enctype="multipart/form-data">
+            <form id="carete_book" action="{{route('admin.book.store_book')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <h1>Add book</h1>

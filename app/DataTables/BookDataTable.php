@@ -46,7 +46,7 @@ class BookDataTable extends DataTable
                     ->setTableId('book-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
+                    ->dom('Blfrtip')
                     ->orderBy(1)
                     ->buttons(
                         Button::make('create'),
@@ -65,15 +65,20 @@ class BookDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+           
             Column::make('id'),
-            Column::make('add your columns'),
+            Column::make('name')->title('Book Title'),
+            Column::make('auther'),
+            Column::make('category_id'),
+            Column::make('description'),
+            Column::make('image'),
+            Column::make('books'),
             Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->width(60)
+            ->addClass('text-center'),
         ];
     }
 

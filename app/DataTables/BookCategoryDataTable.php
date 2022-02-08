@@ -21,7 +21,14 @@ class BookCategoryDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'bookcategory.action');
+            ->addColumn('action', function ($data) {
+                $result = "";
+                $result .= '<button class="btn btn-success edit_doctor"  data-id="' . $data->id . '"data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></button>               
+                <button class="btn btn-danger category_delete"  data-id="' . $data->id . '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                return $result;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn();
     }
 
     /**
