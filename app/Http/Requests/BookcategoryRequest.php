@@ -24,7 +24,7 @@ class BookcategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:users,name',
+            'name' => 'required','exists:book_issues,name',
         ];
     }
 }

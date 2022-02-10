@@ -19,8 +19,14 @@ class BookCategoryController extends Controller
 
         return view('Admin.BookCategory.create');
     }
-    public function storeCategory(BookCategoryRequest $request)
+    public function storeCategory(BookcategoryRequest $request)
     {
+        $category = BookCategory::where('', '=', $request->input('email'))->first();
+        if ($users === null) {
+            // User does not exist
+        } else {
+            // User exits
+        }
         $category = BookCategory::create([
             'name' => $request->name,
             'status' => '1',
