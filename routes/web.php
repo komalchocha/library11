@@ -17,8 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group( ['middleware' => 'auth:web', ''],function () {
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/welcome_library', [App\Http\Controllers\User\UserController::class, 'index']);
+Route::post('store', [App\Http\Controllers\Admin\BookissueController::class,'store'])->name('store');
+Route::get('viewbook/{id}', [App\Http\Controllers\Admin\BookissueController::class, 'book'])->name('viewbook');
+    
+});

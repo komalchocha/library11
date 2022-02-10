@@ -16,7 +16,7 @@ class CreateBookCategoriesTable extends Migration
         Schema::create('book_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->comment('1 = active, 0= inactive')->nullable();
             $table->timestamps();
         });
     }

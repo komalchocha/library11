@@ -69,6 +69,30 @@
             });
         }
     });
+    $(document).on('click', '.inactive', function() {
+
+        var id = $(this).attr('data-id');
+        var conf = confirm("Are you sure");
+
+        if (conf == true) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                url: "{{route('admin.book.category_status')}}",
+                method: 'POST',
+                data: {
+                    id: id,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    $('#bookcategory-table').DataTable().ajax.reload();
+                    // window.LaravelDataTables["user-table"].draw();
+                }
+            });
+        }
+    });
 </script>
 @endpush
 

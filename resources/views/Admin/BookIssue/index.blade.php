@@ -9,9 +9,7 @@
                     <h3 class="m-0">Book Data</h3>
                 </div>
                 <div class="col-sm-6">
-                    <div class="card-header-actions">
-                        <a href="{{route('admin.book.create')}}"><button class="btn btn-primary btn-save float-right product" title="Add Category">Add</button></a>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -45,30 +43,25 @@
 @push('page_scripts')
 {!! $dataTable->scripts() !!}
 <script>
-
-    $(document).on('click', '.book_delete', function() {
+    $(document).on('click', '.book_request_confirm', function() {
         var id = $(this).attr('data-id');
-        var conf = confirm("Are you sure");
 
-        if (conf == true) {
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                url: "{{route('admin.book.destroy_book')}}",
-                method: 'POST',
-                data: {
-                    id: id,
-                },
-                dataType: 'json',
-                success: function(data) {
-                    alert(data.message);
-                    window.LaravelDataTables["book-table"].draw();
-                }
-            });
-        }
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            url: "{{route('admin.bookissue.counfirm')}}",
+            method: 'POST',
+            data: {
+                id: id,
+            },
+            dataType: 'json',
+            success: function(data) {
+                window.LaravelDataTables["bookissue-table"].draw();
+            }
+        });
+
     });
 </script>
 @endpush
-
 @endsection

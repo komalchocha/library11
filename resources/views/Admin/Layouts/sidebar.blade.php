@@ -33,11 +33,13 @@
                          <span>Books<span class="badge badge-success badge-pill float-right"></span><span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></span>
                      </a>
                  </li>
-                 <!-- <li class="has_sub">
-                     <i class="dripicons-briefcase"></i> <span> <span class="badge badge-success badge-pill float-right"></span>
-                         <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                 <li>
+                     <a href="{{route('admin.bookissue.book_issue_view')}}" class="waves-effect">
+                         <i class="dripicons-briefcase"></i>
+                         <span>Book Issue<span class="badge badge-success badge-pill float-right"></span><span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></span>
+                     </a>
+                 </li>
 
-                 </li> -->
 
              </ul>
          </div>

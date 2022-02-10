@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\BookCategory;
+use App\Models\BookIssue;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class BookCategoryDataTable extends DataTable
+class BookIssueDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -23,36 +23,40 @@ class BookCategoryDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function ($data) {
                 $result = "";
-                $result .= '<a href="' . route('admin.book.edit', $data->id) . '" class="btn btn-success" ><i class="fa fa-edit"></i></a>              
-                <button class="btn btn-danger category_delete"  data-id="' . $data->id . '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
-                if($data->status == 1){
-                $result .= '<button class="btn btn-success inactive"  data-id="' . $data->id . '"><i class="fa fa-unlock" aria-hidden="true"></i></button>';
-                }else{
-                $result .= '<button class="btn btn-danger inactive"  data-id="' . $data->id . '"><i class="fa fa-lock" aria-hidden="true"></i></i></button>';            
-                }
-                 return $result;
+                if($data->status == 0){
+                $result .= '<button class="btn btn-success book_request_confirm"  data-id="' . $data->id . ' ">Request Pendding</i></button>
+                <button class="btn btn-primary book_return"  data-id="' . $data->id . '">returned</button>';
+                
+                return $result;
+            }else{
+                $result .= '<button class="btn btn-primary book_return"  data-id="' . $data->id . '">returned</button>';
+                return  $result;
+            }
 
             })
-            ->editColumn('status', function ($data) {
-                if ($data->status == 1) {
-                    return '<span class="badge badge-success">Active</span>';
-                } else {
-                    return '<span class="badge badge-danger">Inactive</span>';
+            ->editColumn('user_id', function ($data) {
+                return $data->user ? $data->user->name : '';
+            })
+            ->editColumn('book_id', function ($data) {
+                return $data->book ? $data->book->name : '';
+            })
+            ->editColumn('fine_ammount', function ($data) {
+                if($data->fine_ammount = 0){
+                    return;
                 }
             })
-          
         
-            ->rawColumns(['action', 'status'])
+            ->rawColumns(['action'])
             ->addIndexColumn();
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\BookCategory $model
+     * @param \App\Models\BookIssue $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(BookCategory $model)
+    public function query(BookIssue $model)
     {
         return $model->newQuery();
     }
@@ -65,7 +69,7 @@ class BookCategoryDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('bookcategory-table')
+                    ->setTableId('bookissue-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Blfrtip')
@@ -87,10 +91,13 @@ class BookCategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-          
+
             Column::make('id'),
-            Column::make('name'),
-            Column::make('status'),
+            Column::make('user_id'),
+            Column::make('book_id'),
+            Column::make('fine_ammount'),
+            Column::make('created_at'),
+            Column::make('updated_at'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
@@ -106,6 +113,6 @@ class BookCategoryDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'BookCategory_' . date('YmdHis');
+        return 'BookIssue_' . date('YmdHis');
     }
 }

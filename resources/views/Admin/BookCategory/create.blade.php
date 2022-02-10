@@ -6,6 +6,8 @@
         <div class="container-fluid">
             <form id="create_category" action="{{route('admin.book.storeCategory')}}">
                 @csrf
+                <h3>Add Book Category</h3>
+
                 <div class="form-group">
                     <label>Book Name</label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Enter Book Name" onKeypress="return(event.charCode>64 && event.charCode<91)||(event.charCode>96 &&(event.charCode<123)||(event.charCode==15))">
@@ -35,27 +37,27 @@
 
     });
     $(document).on('click', '.category_delete', function() {
-            var id = $(this).attr('data-id');
-            var conf = confirm("Are you sure");
+        var id = $(this).attr('data-id');
+        var conf = confirm("Are you sure");
 
-            if (conf == true) {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    url: "{{route('admin.book.destroy_category')}}",
-                    method: 'POST',
-                    data: {
-                        id: id,
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        alert(data.message);
-                        window.LaravelDataTables["doctor-table"].draw();
-                    }
-                });
-            }
-        });
+        if (conf == true) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                url: "{{route('admin.book.destroy_category')}}",
+                method: 'POST',
+                data: {
+                    id: id,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    alert(data.message);
+                    window.LaravelDataTables["doctor-table"].draw();
+                }
+            });
+        }
+    });
 </script>
 @endpush
 @endsection

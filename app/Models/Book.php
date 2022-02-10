@@ -16,4 +16,22 @@ class Book extends Model
         'description',
         'books',
     ];
+    public function getImageAttribute($value)
+    {
+        return $value ? asset('storage/image' . '/' . $value) : NULL;
+    }
+    public function getcategory()
+    {
+        return $this->hasOne(BookCategory::class, 'id', 'category_id');
+    }
+    public function bookissue()
+    {
+        return $this->hasMany(BookIssue::class, 'book_id', 'id');
+    }
+  
+    public function bookissued()
+    {
+        return $this->hasMany(BookIssue::class, 'book_id');
+    }
+  
 }

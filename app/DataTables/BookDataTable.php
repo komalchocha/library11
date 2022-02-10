@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Book;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -21,7 +22,26 @@ class BookDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'book.action');
+
+            ->addColumn('action', function ($data) {
+                $result = "";
+
+                $result .= '<a href="' . route('admin.book.book_edit', $data->id) . '" class="btn btn-success" ><i class="fa fa-edit"></i></a>              
+                <button class="btn btn-danger book_delete"  data-id="' . $data->id . '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+               
+               return $result;
+
+            })
+            ->editColumn('image', function ($data) {
+                if ($data->image) {
+                    return '<img src="' . $data->image . '" class="rounded" style="width:60px; height:60px; object-fit: cover; border-radius:0px;"/>';
+                }
+            })
+            ->editColumn('category_id', function ($data) {
+                return $data->getcategory ? $data->getcategory->name : '';
+            })
+            ->rawColumns(['action', 'image'])
+            ->addIndexColumn();
     }
 
     /**
@@ -32,6 +52,7 @@ class BookDataTable extends DataTable
      */
     public function query(Book $model)
     {
+      
         return $model->newQuery();
     }
 
@@ -62,18 +83,18 @@ class BookDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    protected function getColumns() 
     {
+       
         return [
            
             Column::make('id'),
             Column::make('name')->title('Book Title'),
             Column::make('auther'),
-            Column::make('category_id'),
+            Column::make('category_id')->title('category'),
             Column::make('description'),
             Column::make('image'),
             Column::make('books'),
-            Column::make('created_at'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\BookDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
-use App\Models\Bookcategory;
+use App\Models\BookCategory;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -29,7 +29,7 @@ class BookController extends Controller
         $category = Book::create([
             'name' => $request->title,
             'auther' => $request->auther,
-            'descreption' => $request->description,
+            'description' => $request->description,
             'image' => $filename,
             'category_id' => $request->categorie_name,
             'books' => $request->books,
@@ -39,6 +39,24 @@ class BookController extends Controller
 
         session(['alert' => 'Insert Sucessfully', 'class' => 'alert alert-danger']);
 
-        return redirect()->route('admin.book.category_view_list');
+        return redirect()->route('admin.book.book_view_list');
+    }
+    public function edit(Request $request, $id)
+    {
+        $book = Book::find($id);
+        $bookcategories=BookCategory::all();
+        return view('Admin.Book.edit', compact('book', 'bookcategories'));
+    }
+    public function update(Request $request, $id)
+    {
+        $book = Book::find($id);
+        $book->name = $request->name;
+        $book->save();
+        return redirect()->route('admin.book.book_view_list');
+    }
+    public function destroy(Request $request)
+    {
+        Book::where('id', $request->id)->delete();
+        return response()->json(['status' => true, 'message' => 'Delete Successfully']);
     }
 }
