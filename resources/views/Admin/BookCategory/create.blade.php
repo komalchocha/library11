@@ -7,7 +7,7 @@
             <form id="create_category" action="{{route('admin.book.storeCategory')}}">
                 @csrf
                 <h3>Add Book Category</h3>
-
+   
                 <div class="form-group">
                     <label>Book Name</label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Enter Book Name" onKeypress="return(event.charCode>64 && event.charCode<91)||(event.charCode>96 &&(event.charCode<123)||(event.charCode==15))">
