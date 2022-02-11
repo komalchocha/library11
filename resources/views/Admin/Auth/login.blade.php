@@ -40,7 +40,7 @@
                                 <div class="card-body">
 
                                     <h3 class="text-center mt-0 m-b-15">
-                                        <a href="index.html" class="logo logo-admin"><img src="../assets/images/logo-dark.png" height="30" alt="logo"></a>
+                                        <a href="index.html" class="logo logo-admin"><img src="../assets/images/logo.png" height="75" width="120" alt="logo"></a>
                                     </h3>
 
                                     <h4 class="text-muted text-center font-18"><b>Sign In</b></h4>

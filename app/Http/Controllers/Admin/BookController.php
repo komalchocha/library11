@@ -22,19 +22,24 @@ class BookController extends Controller
     }
     public function store(Request $request)
     {
-        $file = $request->image;
-        $extension = $file->getclientoriginalextension();
-        $filename = rand() . '_post.' . $extension;
-        $file->move('storage/image', $filename);
-        $category = Book::create([
-            'name' => $request->title,
-            'auther' => $request->auther,
-            'description' => $request->description,
-            'image' => $filename,
-            'category_id' => $request->categorie_name,
-            'books' => $request->books,
-
-        ]);
+        $category = Book::where('category_id',$request->input('category_id'))->orwhere('name', '=', $request->input('title'))->first();
+        if( $category === null){
+            $file = $request->image;
+            $extension = $file->getclientoriginalextension();
+            $filename = rand() . '_post.' . $extension;
+            $file->move('storage/image', $filename);
+            $category = Book::create([
+                'name' => $request->title,
+                'auther' => $request->auther,
+                'description' => $request->description,
+                'image' => $filename,
+                'category_id' => $request->categorie_name,
+                'books' => $request->books,
+    
+            ]);
+        }else{
+            dd(2);
+        }
         $category->save();
 
         session(['alert' => 'Insert Sucessfully', 'class' => 'alert alert-danger']);

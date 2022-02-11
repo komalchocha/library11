@@ -21,9 +21,11 @@
                     <select name="categorie_name" id="categorie" class="form-control">
                         <option value="{{$book->category_id}}">Select Bookcategorie</option>
                         @foreach ($bookcategories as $bookcategory)
+                        @if($bookcategory->status == null)
                         <option value="{{$bookcategory->id}}">
                             {{$bookcategory->name}}
                         </option>
+                        @endif
                         @endforeach
                         </option>
                     </select>

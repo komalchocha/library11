@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\BookCategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookcategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\BookCategory;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 
 class BookCategoryController extends Controller
@@ -21,18 +23,17 @@ class BookCategoryController extends Controller
     }
     public function storeCategory(BookcategoryRequest $request)
     {
-        $category = BookCategory::where('', '=', $request->input('email'))->first();
-        if ($users === null) {
-            // User does not exist
+        $category = BookCategory::where('name', '=', $request->input('name'))->first();
+        if ($category === null) {
+            $category = BookCategory::create([
+                'name' => $request->name,
+                'status' => '1',
+            ]);
         } else {
-            // User exits
+           return (1);
         }
-        $category = BookCategory::create([
-            'name' => $request->name,
-            'status' => '1',
-        ]);
+       
         $category->save();
-        session(['alert' => 'Insert Sucessfully', 'class' => 'alert alert-danger']);
 
         return redirect()->route('admin.book.category_view_list');
 
@@ -49,7 +50,7 @@ class BookCategoryController extends Controller
         $bookcategory=BookCategory::find($id);
         return view('Admin.BookCategory.edit', compact('bookcategory'));
     }
-    public function update(Request $request, $id)
+    public function update(UpdateCategoryRequest $request, $id)
     {
         $bookcategory = BookCategory::find($id);
         $bookcategory->name = $request->name;
