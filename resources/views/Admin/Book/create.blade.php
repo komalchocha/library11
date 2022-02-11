@@ -12,6 +12,9 @@
                     <label for="exampleInputEmail1">Book Title</label>
                     <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp" placeholder="Enter Book Title">
                 </div>
+                @if(\Session::get('error'))
+                <p>{{\Session::get('error')}}</p>
+                @endif
                 <div class="form-group col-7">
                     <label>Auther Name</label>
                     <input type="text" class="form-control" id="auther" name="auther" aria-describedby="emailHelp" placeholder="Enter Auther Name">
@@ -20,9 +23,9 @@
                     <label>Choose Category</label>
                     <select name="categorie_name" id="categorie" class="form-control">
                         <option value="">Select Bookcategorie</option>
-                        
+
                         @foreach ($bookcategories as $bookcategory)
-                        @if($bookcategory->status == null)
+                        @if($bookcategory->status ==1)
                         <option value="{{$bookcategory->id}}">
                             {{$bookcategory->name}}
                         </option>

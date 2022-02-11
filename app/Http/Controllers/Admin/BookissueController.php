@@ -18,7 +18,8 @@ class BookissueController extends Controller
     }
     public function store(Request $request)
     {
-        
+        $date = Carbon::now()->addDays(8);
+
         
         $bookissue = BookIssue::create([
             'user_id' => Auth::user()->id,
@@ -26,16 +27,12 @@ class BookissueController extends Controller
             'status' => '0',
             'fine_ammount' => '0',
             'book_status' => '0',
+            'return_date' => $date,
            
             
         ]);
-        dd($bookissue);
         $bookissue->save();
-        return redirect('/welcome_library');
-
-
-
-
+        return response()->json(['status' => true, 'data' => $bookissue]);
     }
     public function counfirm(Request $request){
 
@@ -44,12 +41,32 @@ class BookissueController extends Controller
         $decrement= $book->book->decrement('books', 1);
         if ($data->status == 0) {
             $data->status = 1;
-            
         }
-        $decrement->save();
+        $data->save();
+        return $data;
+
+    }
+    public function bookissue(Request $request){
+
+        $data = BookIssue::find($request->id);
+        if ($data->status == 1) {
+            $data->status = 2;
+        }
+        $data->save();
+        return $data;
+
+    }
+    public function finereturn(Request $request){
+
+        $data = BookIssue::find($request->id);
+        if ($data->status == 3) {
+            $data->status = 2;
+            $data->fine_ammount =0;
+        }
         $data->save();
         return $data;
 
     }
   
 }
+

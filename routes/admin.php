@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth:admin', ''], function () {
         Route::group(['prefix' => 'bookissue', 'as' => 'bookissue.'], function () {
         Route::get('book_issue_view', 'BookissueController@index')->name('book_issue_view');
         Route::post('counfirm', 'BookissueController@counfirm')->name('counfirm');
+        Route::post('bookissue', 'BookissueController@bookissue')->name('bookissue');
+        Route::post('finereturn', 'BookissueController@finereturn')->name('finereturn');
 
         });
 });

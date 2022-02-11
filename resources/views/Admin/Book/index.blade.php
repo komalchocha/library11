@@ -45,7 +45,6 @@
 @push('page_scripts')
 {!! $dataTable->scripts() !!}
 <script>
-
     $(document).on('click', '.book_delete', function() {
         var id = $(this).attr('data-id');
         var conf = confirm("Are you sure");
@@ -62,6 +61,8 @@
                 },
                 dataType: 'json',
                 success: function(data) {
+                    swal("Done!", data.message, "success");
+
                     alert(data.message);
                     window.LaravelDataTables["book-table"].draw();
                 }

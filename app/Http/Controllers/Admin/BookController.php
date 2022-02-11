@@ -38,7 +38,8 @@ class BookController extends Controller
     
             ]);
         }else{
-            dd(2);
+            return redirect()->route('admin.book.create')->with('error', 'Please select another name');
+
         }
         $category->save();
 

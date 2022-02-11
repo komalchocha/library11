@@ -63,7 +63,7 @@
                 },
                 dataType: 'json',
                 success: function(data) {
-                    alert(data.message);
+                    swal("Done!", data.message, "success");
                     window.LaravelDataTables["bookcategory-table"].draw();
                 }
             });
@@ -86,6 +86,7 @@
                 },
                 dataType: 'json',
                 success: function(data) {
+                    swal("Done!", data.message, "success");
                     console.log(data);
                     $('#bookcategory-table').DataTable().ajax.reload();
                     // window.LaravelDataTables["user-table"].draw();

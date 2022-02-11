@@ -16,7 +16,10 @@ class BookIssue extends Model
         'book_status',
         'created_at',
         'updated_at',
+        'return_date'
     ];
+    protected $dates = ['created_at', 'updated_at', 'return_date'];
+
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
@@ -30,6 +33,10 @@ class BookIssue extends Model
         return date('d-m-yy', strtotime($value));
     }
     public function getupdatedAtAttribute($value)
+    {
+        return date('d-m-yy', strtotime($value));
+    }
+    public function getreturnDateAttribute($value)
     {
         return date('d-m-yy', strtotime($value));
     }

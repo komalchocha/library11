@@ -24,4 +24,20 @@ class UserController extends Controller
        
         return view('User.index', compact('viewbook'));
     }
+    public function search(Request $request)
+    {
+        $name = $request->input('search')?? '';
+       
+        if ($name) {
+            $product = Book::where('name', 'LIKE', "%{$name}%")->where('name', 'LIKE', "%{$name}%")->select('name','image','description', 'auther','id')->get();
+        }
+        return response()->json(['status' => true, 'data' => $product]);
+    }
+    public function bookhistory($id)
+    {
+        $books = BookIssue::with('book')->where('user_id', $id)->get();
+        
+
+        return view('User.book_history', compact('books'));
+    }
 }

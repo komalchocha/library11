@@ -16,6 +16,8 @@
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ asset('css/loader.css') }}">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -82,7 +84,21 @@
                             </div>
                         </li>
                         @endguest
+
                     </ul>
+                    <div class="input-group w-auto mb-4">
+                        <div class="form-outline float-left">
+                            <input id="search-input" type="text" placeholder="Search Book" name="search" val="" class="form-control" />
+                        </div>
+                        <button id="search-button" type="submit" class="btn btn-primary">search
+                        </button>
+                    </div>
+                    @if(count(Auth::user()->books)>0)
+                    <div class="input-group w-auto mb-4">
+                        <a href="{{route('book_history',Auth::user()->id)}}"><button id="history" type="submit" class="btn btn-primary">History
+                            </button></a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </nav>

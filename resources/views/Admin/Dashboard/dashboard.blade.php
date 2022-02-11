@@ -13,7 +13,9 @@
     <div class="col-sm-12">
         <div class="float-right page-breadcrumb">
             <ol class="breadcrumb">
-                <a href="{{route('admin.dashboard')}}"><li class="breadcrumb-item active">Dashboard</li></a>
+                <a href="{{route('admin.dashboard')}}">
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </a>
             </ol>
         </div>
         <h5 class="page-title">Dashboard</h5>
@@ -27,17 +29,17 @@
                 <div class="mini-stat-icon">
                     <i class="mdi mdi-cube-outline float-right mb-0"></i>
                 </div>
-                <h6 class="text-uppercase mb-0">New Orders</h6>
+                <h6 class="text-uppercase mb-0">Total Book</h6>
             </div>
             <div class="card-body">
                 <div class="border-bottom pb-4">
-                    <span class="badge badge-success"> +11% </span> <span class="ml-2 text-muted">From previous period</span>
+                    <span class="badge badge-success"></span>
+                    <h2>{{$books->count()}}</h2>
                 </div>
                 <div class="mt-4 text-muted">
                     <div class="float-right">
-                        <p class="m-0">Last : 1325</p>
                     </div>
-                    <h5 class="m-0">1456<i class="mdi mdi-arrow-up text-success ml-2"></i></h5>
+                    <h5 class="m-0"></i></h5>
 
                 </div>
             </div>
@@ -49,17 +51,18 @@
                 <div class="mini-stat-icon">
                     <i class="mdi mdi-account-network float-right mb-0"></i>
                 </div>
-                <h6 class="text-uppercase mb-0">New Users</h6>
+                <h6 class="text-uppercase mb-0">Total Bokk Issue</h6>
             </div>
             <div class="card-body">
                 <div class="border-bottom pb-4">
-                    <span class="badge badge-success"> +22% </span> <span class="ml-2 text-muted">From previous period</span>
+                    <span class="badge badge-success"></span>
+                    <h2>{{$bookissue->count()}}</h2>
                 </div>
                 <div class="mt-4 text-muted">
                     <div class="float-right">
-                        <p class="m-0">Last : 3426</p>
+                        <p class="m-0"></p>
                     </div>
-                    <h5 class="m-0">3567<i class="mdi mdi-arrow-up text-success ml-2"></i></h5>
+                    <h5 class="m-0"></h5>
 
                 </div>
             </div>
@@ -71,17 +74,17 @@
                 <div class="mini-stat-icon">
                     <i class="mdi mdi-tag-text-outline float-right mb-0"></i>
                 </div>
-                <h6 class="text-uppercase mb-0">Average Price</h6>
+                <h6 class="text-uppercase mb-0">Avealable Book</h6>
             </div>
             <div class="card-body">
                 <div class="border-bottom pb-4">
-                    <span class="badge badge-danger"> -02% </span> <span class="ml-2 text-muted">From previous period</span>
+
+                    <span class="badge badge-danger"></span>
+                    <h2>{{$avalablebook->count()}}</h2>
                 </div>
                 <div class="mt-4 text-muted">
-                    <div class="float-right">
-                        <p class="m-0">Last : 15.8</p>
-                    </div>
-                    <h5 class="m-0">14.5<i class="mdi mdi-arrow-down text-danger ml-2"></i></h5>
+
+                    <h5 class="m-0"></h5>
 
                 </div>
             </div>
@@ -93,17 +96,16 @@
                 <div class="mini-stat-icon">
                     <i class="mdi mdi-cart-outline float-right mb-0"></i>
                 </div>
-                <h6 class="text-uppercase mb-0">Total Sales</h6>
+                <h6 class="text-uppercase mb-0">Total Issue Book</h6>
             </div>
             <div class="card-body">
                 <div class="border-bottom pb-4">
-                    <span class="badge badge-success"> +10% </span> <span class="ml-2 text-muted">From previous period</span>
+                    <span class="badge badge-success"></span>
+                    <h2>{{$issuedbook->count()}}</h2>
                 </div>
                 <div class="mt-4 text-muted">
-                    <div class="float-right">
-                        <p class="m-0">Last : 14256</p>
-                    </div>
-                    <h5 class="m-0">15234<i class="mdi mdi-arrow-up text-success ml-2"></i></h5>
+
+                    <h5 class="m-0"></h5>
 
                 </div>
             </div>

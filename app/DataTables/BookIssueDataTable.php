@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\BookIssue;
+use Carbon\Carbon;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -24,13 +25,20 @@ class BookIssueDataTable extends DataTable
             ->addColumn('action', function ($data) {
                 $result = "";
                 if($data->status == 0){
-                $result .= '<button class="btn btn-success book_request_confirm"  data-id="' . $data->id . ' ">Request Pendding</i></button>
-                <button class="btn btn-primary book_return"  data-id="' . $data->id . '">returned</button>';
-                
+                $result .= '<button class="btn btn-primary book_request_confirm"  data-id="' . $data->id . ' ">Request Pendding</i></button>';
                 return $result;
-            }else{
-                $result .= '<button class="btn btn-primary book_return"  data-id="' . $data->id . '">returned</button>';
-                return  $result;
+            }else if($data->status == 1){
+                $result .= '<button class="btn btn-success book_issued"  data-id="' . $data->id . ' ">Book Issued</i></button>';
+                return $result;
+            } else if ($data->status == 2) {
+                $result .= '<button class="btn btn-dark"  data-id="' . $data->id . ' ">Returned</i></button>';
+                return $result;
+            
+            }
+            else if ($data->status == 3) {
+                $result .= '<button class="btn btn-danger fine_return"  data-id="' . $data->id . ' ">Returned Fine</i></button>';
+                return $result;
+            
             }
 
             })
@@ -40,9 +48,25 @@ class BookIssueDataTable extends DataTable
             ->editColumn('book_id', function ($data) {
                 return $data->book ? $data->book->name : '';
             })
+         
             ->editColumn('fine_ammount', function ($data) {
-                if($data->fine_ammount = 0){
-                    return;
+
+                $date = $data->created_at;
+                if ($data->status == 0) {
+                    return "Not fine Ammount";
+                } elseif (($data->status == 1) && ($data->return_date < $date)) {
+                    $calculate = (int)((strtotime($date) - strtotime($data->return_date)) / 86400);
+                    $data = BookIssue::where('id', $data->id)->update([
+                        'status' => "3",
+                        'fine_ammount' => $calculate * 10,
+                    ]);
+                    return $calculate * 10;
+                } elseif ($data->status == 2) {
+                    return "Not fine Ammount";
+                } elseif ($data->status == 3) {
+                    return $data->fine_ammount;
+                } else {
+                    return "Not fine Ammount";
                 }
             })
         
@@ -96,8 +120,8 @@ class BookIssueDataTable extends DataTable
             Column::make('user_id'),
             Column::make('book_id'),
             Column::make('fine_ammount'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('created_at')->title('issue date'),
+            Column::make('return_date'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)

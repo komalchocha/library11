@@ -21,7 +21,7 @@
                     <select name="categorie_name" id="categorie" class="form-control">
                         <option value="{{$book->category_id}}">Select Bookcategorie</option>
                         @foreach ($bookcategories as $bookcategory)
-                        @if($bookcategory->status == null)
+                        @if($bookcategory->status = 1)
                         <option value="{{$bookcategory->id}}">
                             {{$bookcategory->name}}
                         </option>

@@ -30,7 +30,9 @@ class BookCategoryController extends Controller
                 'status' => '1',
             ]);
         } else {
-           return (1);
+            return redirect()->route('admin.book.create_category')->with('error', 'This name id allready exits');
+
+    
         }
        
         $category->save();

@@ -57,6 +57,50 @@
             },
             dataType: 'json',
             success: function(data) {
+                swal("Done!", data.message, "success");
+
+                window.LaravelDataTables["bookissue-table"].draw();
+            }
+        });
+
+    });
+    $(document).on('click', '.book_issued', function() {
+        var id = $(this).attr('data-id');
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            url: "{{route('admin.bookissue.bookissue')}}",
+            method: 'POST',
+            data: {
+                id: id,
+            },
+            dataType: 'json',
+            success: function(data) {
+                swal("Done!", data.message, "success");
+
+                window.LaravelDataTables["bookissue-table"].draw();
+            }
+        });
+
+    });
+    $(document).on('click', '.fine_return', function() {
+        var id = $(this).attr('data-id');
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            url: "{{route('admin.bookissue.finereturn')}}",
+            method: 'POST',
+            data: {
+                id: id,
+            },
+            dataType: 'json',
+            success: function(data) {
+                swal("Done!", data.message, "success");
+
                 window.LaravelDataTables["bookissue-table"].draw();
             }
         });
