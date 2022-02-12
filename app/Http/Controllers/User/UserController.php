@@ -27,9 +27,11 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $name = $request->input('search')?? '';
-       
+        $book = Book::with(['getcategory']);
         if ($name) {
-            $product = Book::where('name', 'LIKE', "%{$name}%")->where('name', 'LIKE', "%{$name}%")->select('name','image','description', 'auther','id')->get();
+            $product = $book->where('name', 'LIKE', "%{$name}%")->orwhereHas('getcategory', function ($query) use ($name) {
+                $query->where('name', 'LIKE', "%{$name}%");
+            })->select('name','image','description', 'auther','id', 'category_id')->get();
         }
         return response()->json(['status' => true, 'data' => $product]);
     }

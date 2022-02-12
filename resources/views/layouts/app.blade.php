@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Library</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -37,68 +37,54 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+            <div class="container-fluid">
+
+                <a href="index.html" class="logo"><img src="{{ asset('assets/images/logo.png') }}" height="60" width="150" alt="logo"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    <div class="navbar-data-flex">
 
-                    </ul>
+                        <form action="javacsript:void(0);" class="input-group w-auto">
+                            <div class="form-outline float-left">
+                                <input id="search-input" type="text" placeholder="Search Book" name="search" val="" class="form-control" />
+                            </div>
+                            <button id="search-button" type="submit" class="btn btn-primary ml-2">search
+                            </button>
+                        </form>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                        @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @endif
+                        <ul class="navbar-nav ms-auto">
+                           
 
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif
-                        @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                        @endguest
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
 
-                    </ul>
-                    <div class="input-group w-auto mb-4">
-                        <div class="form-outline float-left">
-                            <input id="search-input" type="text" placeholder="Search Book" name="search" val="" class="form-control" />
-                        </div>
-                        <button id="search-button" type="submit" class="btn btn-primary">search
-                        </button>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+
+                            @if(count(Auth::user()->books)>0)
+                            <div class="input-group w-auto ml-2">
+                                <a href="{{route('book_history',Auth::user()->id)}}"><button id="history" type="submit" class="btn btn-primary">History
+                                    </button></a>
+                            </div>
+                            @endif
+
+                        </ul>
+
                     </div>
-                    @if(count(Auth::user()->books)>0)
-                    <div class="input-group w-auto mb-4">
-                        <a href="{{route('book_history',Auth::user()->id)}}"><button id="history" type="submit" class="btn btn-primary">History
-                            </button></a>
-                    </div>
-                    @endif
                 </div>
             </div>
         </nav>
