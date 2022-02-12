@@ -14,9 +14,8 @@
                     </div>
                     <img src="{{ asset(''. $books->book->image) }}" class="card-img-top" alt="Image">
                     <div class="card-body p-0 pb-4">
-                        <h4>aa</h4>
-                        <h4>author</h4>
-                        <p>lorem</p>
+                        <h4>{{$books->book->auther}}</h4>
+                        <p>{{$books->book->description}}</p>
                         <button type="button" class="btn btn-primary">Book Request</button>
                         @elseif($books['status'] == 1)
                         <button type="button" class="btn btn-success book_issue">Booked</button>
