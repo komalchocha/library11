@@ -13,7 +13,6 @@ class BookIssue extends Model
         'book_id',
         'fine_ammount',
         'status',
-        'book_status',
         'created_at',
         'updated_at',
         'return_date'
@@ -28,17 +27,15 @@ class BookIssue extends Model
     {
         return $this->hasOne(Book::class, 'id', 'book_id');
     }
+    
     public function getcreatedAtAttribute($value)
     {
-        return date('d-m-yy', strtotime($value));
+        return date('d M, Y', strtotime($value));
     }
-    public function getupdatedAtAttribute($value)
-    {
-        return date('d-m-yy', strtotime($value));
-    }
+   
     public function getreturnDateAttribute($value)
     {
-        return date('d-m-yy', strtotime($value));
+        return date('d M,Y', strtotime($value));
     }
     
     

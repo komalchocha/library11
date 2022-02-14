@@ -25,21 +25,21 @@ class BookIssueDataTable extends DataTable
             ->addColumn('action', function ($data) {
                 $result = "";
                 if($data->status == 0){
-                $result .= '<button class="btn btn-primary book_request_confirm"  data-id="' . $data->id . ' ">Request Pendding</i></button>';
-                return $result;
-            }else if($data->status == 1){
-                $result .= '<button class="btn btn-success book_issued"  data-id="' . $data->id . ' ">Book Issued</i></button>';
-                return $result;
-            } else if ($data->status == 2) {
-                $result .= '<button class="btn btn-dark"  data-id="' . $data->id . ' ">Returned</i></button>';
-                return $result;
-            
-            }
-            else if ($data->status == 3) {
-                $result .= '<button class="btn btn-danger fine_return"  data-id="' . $data->id . ' ">Returned Fine</i></button>';
-                return $result;
-            
-            }
+                    $result .= '<button class="btn btn-primary book_request_confirm"  data-id="' . $data->id . ' ">Request Pendding</i></button>';
+                    return $result;
+                }else if($data->status == 1){
+                    $result .= '<button class="btn btn-success book_issued"  data-id="' . $data->id . ' ">Book Issued</i></button>';
+                    return $result;
+                } else if ($data->status == 2) {
+                    $result .= '<button class="btn btn-dark"  data-id="' . $data->id . ' ">Returned</i></button>';
+                    return $result;
+                
+                }
+                else if ($data->status == 3) {
+                    $result .= '<button class="btn btn-danger fine_return"  data-id="' . $data->id . ' ">Returned Fine</i></button>';
+                    return $result;
+                
+                }
 
             })
             ->editColumn('user_id', function ($data) {
@@ -82,7 +82,7 @@ class BookIssueDataTable extends DataTable
      */
     public function query(BookIssue $model)
     {
-        return $model->newQuery();
+        return $model->with(['user','book'])->newQuery();
     }
 
     /**
@@ -116,9 +116,9 @@ class BookIssueDataTable extends DataTable
     {
         return [
 
-            Column::make('id'),
-            Column::make('user_id'),
-            Column::make('book_id'),
+            Column::make('no')->data('DT_RowIndex')->name('DT_RowIndex'),
+            Column::make('user_id')->data('user.name')->title('User name'),
+            Column::make('book_id')->data('book.name')->title('Book Name'),
             Column::make('fine_ammount'),
             Column::make('created_at')->title('issue date'),
             Column::make('return_date'),

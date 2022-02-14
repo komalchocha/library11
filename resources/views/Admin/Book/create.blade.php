@@ -10,14 +10,14 @@
                 <h3>Add book</h3>
                 <div class="form-group col-7">
                     <label for="exampleInputEmail1">Book Title</label>
-                    <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp" placeholder="Enter Book Title">
+                    <input type="text" class="form-control" name="name" id="title" aria-describedby="emailHelp" placeholder="Enter Book Title" onKeypress="return(event.charCode>64 && event.charCode<91)||(event.charCode>96 &&(event.charCode<123)||(event.charCode==15))">
                 </div>
-                @if(\Session::get('error'))
-                <p>{{\Session::get('error')}}</p>
+                @if($errors->any())
+                <div class="error">{{ $errors->first('name') }}</div>
                 @endif
                 <div class="form-group col-7">
                     <label>Auther Name</label>
-                    <input type="text" class="form-control" id="auther" name="auther" aria-describedby="emailHelp" placeholder="Enter Auther Name">
+                    <input type="text" class="form-control" id="auther" name="auther" aria-describedby="emailHelp" placeholder="Enter Auther Name" onKeypress="return(event.charCode>64 && event.charCode<91)||(event.charCode>96 &&(event.charCode<123)||(event.charCode==15))">
                 </div>
                 <div class="form-group col-7">
                     <label>Choose Category</label>
@@ -36,12 +36,15 @@
                 </div>
                 <div class="form-group col-7">
                     <label>Description</label>
-                    <textarea name="description" id="description" class="form-control" placeholder="Enter Description"></textarea>
+                    <textarea name="description" id="description" class="form-control" placeholder="Enter Description" onKeypress="return(event.charCode>64 && event.charCode<91)||(event.charCode>96 &&(event.charCode<123)||(event.charCode==15))"></textarea>
                 </div>
                 <div class="form-group col-7">
                     <div class=" form-group">
                         <label class="d-block">Choose Book</label>
                         <input type="file" name="image" class="form-control" id="image" />
+                        @if($errors->any())
+                        <div class="error">{{ $errors->first('image') }}</div>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group col-7">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\BookDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Bookrequest;
 use App\Models\Book;
 use App\Models\BookCategory;
 use Illuminate\Http\Request;
@@ -20,16 +21,15 @@ class BookController extends Controller
         $bookcategories=BookCategory::all();
         return view('Admin.Book.create',compact('bookcategories'));
     }
-    public function store(Request $request)
+    public function store(Bookrequest $request)
     {
-        $category = Book::where('category_id',$request->input('category_id'))->orwhere('name', '=', $request->input('title'))->first();
-        if( $category === null){
+
             $file = $request->image;
             $extension = $file->getclientoriginalextension();
             $filename = rand() . '_post.' . $extension;
             $file->move('storage/image', $filename);
             $category = Book::create([
-                'name' => $request->title,
+                'name' => $request->name,
                 'auther' => $request->auther,
                 'description' => $request->description,
                 'image' => $filename,
@@ -37,14 +37,6 @@ class BookController extends Controller
                 'books' => $request->books,
     
             ]);
-        }else{
-            return redirect()->route('admin.book.create')->with('error', 'Please select another name');
-
-        }
-        $category->save();
-
-        session(['alert' => 'Insert Sucessfully', 'class' => 'alert alert-danger']);
-
         return redirect()->route('admin.book.book_view_list');
     }
     public function edit(Request $request, $id)
@@ -53,11 +45,22 @@ class BookController extends Controller
         $bookcategories=BookCategory::all();
         return view('Admin.Book.edit', compact('book', 'bookcategories'));
     }
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, $id)
     {
         $book = Book::find($id);
         $book->name = $request->name;
-        $book->save();
+        $book->auther = $request->auther;
+        $book->description = $request->description;
+        $book->category_id = $request->categorie_name;
+        $book->books = $request->books;
+        if (isset($request->image)) {
+            $file = $request->image;
+            $extension = $file->getclientoriginalextension();
+            $filename = rand() . '_post.' . $extension;
+            $file->move('storage/image', $filename);
+            $book->image = $filename;
+        }
+        $book->update();
         return redirect()->route('admin.book.book_view_list');
     }
     public function destroy(Request $request)

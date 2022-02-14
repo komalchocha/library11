@@ -45,6 +45,7 @@
 <script>
     $(document).on('click', '.book_request_confirm', function() {
         var id = $(this).attr('data-id');
+        var conf = confirm("Are you sure");
 
         $.ajax({
             headers: {
@@ -66,6 +67,7 @@
     });
     $(document).on('click', '.book_issued', function() {
         var id = $(this).attr('data-id');
+        var conf = confirm("Are you sure");
 
         $.ajax({
             headers: {
@@ -87,6 +89,7 @@
     });
     $(document).on('click', '.fine_return', function() {
         var id = $(this).attr('data-id');
+        var conf = confirm("Are you sure");
 
         $.ajax({
             headers: {

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>Drixo - Responsive Booststrap 4 Admin & Dashboard</title>
+    <title>User Login</title>
     <meta content="Admin Dashboard" name="description" />
     <meta content="ThemeDesign" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -43,7 +43,7 @@
                                         <a href="index.html" class="logo logo-admin"><img src="assets/images/logo.png" height="75" width="120" alt="logo"></a>
                                     </h3>
 
-                                    <h4 class="text-muted text-center font-18"><b>Sign In</b></h4>
+                                    <h4 class="text-muted text-center font-18"><b>User Sign In</b></h4>
 
                                     <div class="p-2">
                                         <form method="POST" action="{{ route('login') }}">

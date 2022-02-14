@@ -2,64 +2,72 @@
 
 @section('content')
 <div class="container">
-    
-            <div class="content">
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            @if(Auth::check())
-                            <div class="col-sm-6">
 
+    <div class="content">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    @if(Auth::check())
+                    <div class="col-sm-6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="content">
+            <div class="container-fluid">
+
+                @csrf
+                <div class="row causes_div">
+                    @foreach($books as $key => $book)
+
+                    @if($book->getcategory->status == 1)
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h5 class="card-title"><a href="">{{$book->name}}</a> </h5>
+                            </div>
+                            <img src="{{ asset(''. $book->image) }}" class="card-img-top" alt="Image">
+                            <div class="card-body">
+                                <h4>{{$book->getcategory->name}}</h4>
+                                <h4>Author Name:{{$book->auther}}</h4>
+                                <p class="card-text" style="max-height: 45px; overflow: hidden;">{{$book->description}}</p>
+                                @if($book->books == 0 )
+                                <button type="button" class="btn btn-danger">Out Of Stack</button>
+                                @else
+
+                                @php $my_order = $book->bookissued->where('user_id', auth()->user()->id)
+                                @endphp
+
+                                @if(count($my_order)== 0)
+                                <button type="submit" value="{{$book->id}}" class="btn btn-info book_issue">Book Issue</button>
+                                @else
+                                @foreach($book->bookissued as $a)
+                                @if($a['status'] == null && Auth::user()->id == $a->user_id)
+                                <span class="badge badge-success">Book issue</span>
+                                @elseif($a['status'] == 0 && Auth::user()->id == $a->user_id)
+                                <span class="badge badge-primary">Book Request</span>
+                                @elseif($a['status'] == 1 && Auth::user()->id == $a->user_id)
+                                <span class="badge badge-success">Booked</span>
+                                @elseif($a['status'] == 2 && Auth::user()->id == $a->user_id)
+                                <button type="submit" value="{{$book->id}}" class="btn btn-info book_issue">Book Issue</button>
+                                @elseif($a['status'] == 3 && Auth::user()->id == $a->user_id)
+                                <span class="badge badge-danger">Fine ${{$a['fine_ammount']}}</span>
+                                @endif
+                                @endforeach
+                                @endif
+                                @endif
+                                @endif
                             </div>
                         </div>
                     </div>
-                </div>
-                <section class="content">
-                    <div class="container-fluid">
-                        
-                        @csrf
-                        <div class="row causes_div">
-                            @foreach($books as $key => $book)
-
-                            <div class="col-lg-4 mb-4">
-                                <div class="card h-100">
-                                    <div class="card-header">
-                                        <h5 class="card-title"><a href="">{{$book->name}}</a> </h5>
-                                    </div>
-                                    <img src="{{ asset(''. $book->image) }}" class="card-img-top" alt="Image">
-                                    <div class="card-body">
-                                        <h4>{{$book->getcategory->name}}</h4>
-                                        <h4>Author Name:{{$book->auther}}</h4>
-                                        <p class="card-text" style="max-height: 45px; overflow: hidden;">{{$book->description}}</p>
-                                        @php $my_order = $book->bookissued->where('user_id', auth()->user()->id)
-                                        @endphp
-
-                                        @if(count($my_order)== 0)
-                                        <button type="submit" value="{{$book->id}}" class="btn btn-info book_issue">Book Issue</button>
-                                        @else
-                                        @foreach($book->bookissued as $a)
-                                        @if($book->books == 0 && Auth::user()->id == $a->user_id)
-                                        <button type="button" class="btn btn-danger">Out Of Stack</button>
-                                        @elseif($a['status'] == null || $a['status'] == 3 || $a['status'] == 2 && Auth::user()->id == $a->user_id)
-                                        <button type="submit" class="btn btn-info book_issue">Book Issue</button>
-                                        @elseif($a['status'] ==0 && Auth::user()->id == $a->user_id)
-                                        <button type="button" class="btn btn-primary">Book Request</button>
-                                        @elseif($a['status'] == 1 && Auth::user()->id == $a->user_id)
-                                        <button type="button" class="btn btn-success book_issue">Booked</button>
-                                        @endif
-                                        @endforeach
-                                        @endif
-
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                </section>
-                @endif
-            </div>
+                    @endforeach
+        </section>
+        @endif
+    </div>
 
 
-        
+
 </div>
 @endsection
 @push('page_scripts')
@@ -71,15 +79,15 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
-            url: "{{route('store')}}",
-            method: 'POST',
+            url: "{{route('store', $book->id)}}",
+            method: 'post',
             data: {
                 id: id,
 
             },
             dataType: 'json',
             success: function(data) {
-
+                alert(data.message);
                 location.href = "/welcome_library"
 
             }
@@ -92,7 +100,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
-            url: "{{route('searchbook')}}",
+            url: "{{route('welcome_library')}}",
             method: 'POST',
             data: {
                 search: search,

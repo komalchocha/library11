@@ -14,29 +14,30 @@
          <div id="sidebar-menu">
              <ul>
 
-                 <li>
+                 <li class="nav-item {{ request()->is('*dashboard*') ? 'active' : '' }}">
                      <a href="{{route('admin.dashboard')}}" class="waves-effect">
                          <i class="dripicons-meter"></i>
-                         <span> Dashboard <span class="badge badge-success badge-pill float-right"></span><span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></span>
+                         <span> Dashboard <span class="badge badge-success badge-pill float-right"></span></span>
                      </a>
                  </li>
 
                  <li>
                      <a href="{{route('admin.book.category_view_list')}}" class="waves-effect">
                          <i class="dripicons-briefcase"></i>
-                         <span>Book Category<span class="badge badge-success badge-pill float-right"></span><span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></span>
+                         <span>Book Category<span class="badge badge-success badge-pill float-right"></span></span>
                      </a>
                  </li>
                  <li>
                      <a href="{{route('admin.book.book_view_list')}}" class="waves-effect">
                          <i class="dripicons-briefcase"></i>
-                         <span>Books<span class="badge badge-success badge-pill float-right"></span><span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></span>
+                         <span>Books<span class="badge badge-success badge-pill float-right"></span></span>
+
                      </a>
                  </li>
                  <li>
                      <a href="{{route('admin.bookissue.book_issue_view')}}" class="waves-effect">
                          <i class="dripicons-briefcase"></i>
-                         <span>Book Issue<span class="badge badge-success badge-pill float-right"></span><span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></span>
+                         <span>Book Issue<span class="badge badge-success badge-pill float-right"></span></span>
                      </a>
                  </li>
 

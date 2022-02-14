@@ -21,22 +21,13 @@ class BookCategoryController extends Controller
 
         return view('Admin.BookCategory.create');
     }
-    public function storeCategory(BookcategoryRequest $request)
+    public function storeCategory(UpdateCategoryRequest $request)
     {
-        $category = BookCategory::where('name', '=', $request->input('name'))->first();
-        if ($category === null) {
             $category = BookCategory::create([
                 'name' => $request->name,
                 'status' => '1',
             ]);
-        } else {
-            return redirect()->route('admin.book.create_category')->with('error', 'This name id allready exits');
-
-    
-        }
-       
-        $category->save();
-
+ 
         return redirect()->route('admin.book.category_view_list');
 
     }
@@ -50,16 +41,18 @@ class BookCategoryController extends Controller
     public function edit(Request $request,$id)
     {
         $bookcategory=BookCategory::find($id);
-        return view('Admin.BookCategory.edit', compact('bookcategory'));
+        return view('Admin.BookCategory.create', compact('bookcategory'));
     }
     public function update(UpdateCategoryRequest $request, $id)
     {
         $bookcategory = BookCategory::find($id);
         $bookcategory->name = $request->name;
         $bookcategory->save();
+
         return redirect()->route('admin.book.category_view_list');
-       
+        
     }
+    
     public function statuschange(Request $request)
     {
         $data = BookCategory::find($request->id);

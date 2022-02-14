@@ -88,7 +88,7 @@ class BookCategoryDataTable extends DataTable
     {
         return [
           
-            Column::make('id'),
+            Column::make('no')->data('DT_RowIndex')->name('DT_RowIndex'),
             Column::make('name'),
             Column::make('status'),
             Column::computed('action')

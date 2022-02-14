@@ -10,19 +10,22 @@
                 <h3>Edit book</h3>
                 <div class="form-group col-7">
                     <label for="exampleInputEmail1">Book Title</label>
-                    <input type="text" class="form-control" value="{{$book->name}}" name="title" id="title" aria-describedby="emailHelp" placeholder="Enter Book Title">
+                    <input type="text" class="form-control" value="{{$book->name}}" name="name" id="title" aria-describedby="emailHelp" placeholder="Enter Book Title">
                 </div>
+                @if($errors->any())
+                <div class="error">{{ $errors->first('name') }}</div>
+                @endif
                 <div class="form-group col-7">
                     <label>Auther Name</label>
                     <input type="text" class="form-control" value="{{$book->auther}}" id="auther" name="auther" aria-describedby="emailHelp" placeholder="Enter Auther Name">
                 </div>
+
                 <div class="form-group col-7">
                     <label>Choose Category</label>
                     <select name="categorie_name" id="categorie" class="form-control">
-                        <option value="{{$book->category_id}}">Select Bookcategorie</option>
                         @foreach ($bookcategories as $bookcategory)
                         @if($bookcategory->status = 1)
-                        <option value="{{$bookcategory->id}}">
+                        <option value="{{$bookcategory->id}}" {{$book->category_id == $bookcategory->id ? 'selected' : ''}}>
                             {{$bookcategory->name}}
                         </option>
                         @endif
@@ -37,8 +40,11 @@
                 <div class="form-group col-7">
                     <div class=" form-group">
                         <label class="d-block">Choose Book</label>
-                        <img src="{{ $book->image }}" />
+                        <img src="{{ $book->image }}" height="100" width="140" />
                         <input type="file" name="image" class="form-control" id="image" />
+                        @if($errors->any())
+                        <div class="error">{{ $errors->first('image') }}</div>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group col-7">
@@ -68,7 +74,7 @@
             description: {
                 required: true,
             },
-           
+
             books: {
                 required: true,
             },
@@ -84,7 +90,7 @@
             description: {
                 required: "Description required",
             },
-            
+
             books: {
                 required: "Number Of Books required",
             },

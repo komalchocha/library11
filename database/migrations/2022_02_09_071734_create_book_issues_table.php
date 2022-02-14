@@ -16,7 +16,7 @@ class CreateBookIssuesTable extends Migration
         Schema::create('book_issues', function (Blueprint $table) {
             $table->id();
             $table->integer('fine_ammount');
-            $table->string('status')->nullable();
+            $table->string('status')->comment('0 =issue,1=request,2=retunrd,3=fine')->nullable();
             $table->string('book_status')->nullable();
             $table->date('return_date')->nullable();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade')->nullable();

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -21,11 +23,21 @@ class UpdateCategoryRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+        $id=$this->id;
         
+        if($id){
         return [
-            'name' => 'required'
+            'name' => 'required|unique:book_categories,name,' . $id,
+
         ];
+    }else{
+         return [
+            'name' => 'required|unique:book_categories,name',
+         ];
+        }
     }
+   
+   
 }

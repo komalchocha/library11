@@ -62,8 +62,6 @@
                 dataType: 'json',
                 success: function(data) {
                     swal("Done!", data.message, "success");
-
-                    alert(data.message);
                     window.LaravelDataTables["book-table"].draw();
                 }
             });

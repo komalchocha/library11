@@ -40,7 +40,14 @@ class BookDataTable extends DataTable
             ->editColumn('category_id', function ($data) {
                 return $data->getcategory ? $data->getcategory->name : '';
             })
-            ->rawColumns(['action', 'image'])
+            ->editColumn('status', function ($data) {
+                if ($data->getcategory->status == 1) {
+                    return '<span class="badge badge-success">Active</span>';
+                } else {
+                    return '<span class="badge badge-danger">Inactive</span>';
+                }
+            })
+            ->rawColumns(['action', 'image', 'status'])
             ->addIndexColumn();
     }
 
@@ -53,7 +60,7 @@ class BookDataTable extends DataTable
     public function query(Book $model)
     {
       
-        return $model->newQuery();
+        return $model->with('getcategory')->newQuery();
     }
 
     /**
@@ -87,14 +94,15 @@ class BookDataTable extends DataTable
     {
        
         return [
-           
-            Column::make('id'),
+
+            Column::make('no')->data('DT_RowIndex')->name('DT_RowIndex'),
             Column::make('name')->title('Book Title'),
             Column::make('auther'),
-            Column::make('category_id')->title('category'),
+            Column::make('category_id')->name('getcategory.name')->title('category'),
             Column::make('description'),
             Column::make('image'),
-            Column::make('books'),
+            Column::make('books')->title('Quility'),
+            Column::make('status'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)

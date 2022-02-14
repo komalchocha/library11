@@ -23,10 +23,11 @@ Auth::routes();
 Route::group( ['middleware' => 'auth:web', ''],function () {
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/welcome_library', [App\Http\Controllers\User\UserController::class, 'index'])->name('welcome_library');
-Route::post('store', [App\Http\Controllers\Admin\BookissueController::class,'store'])->name('store');
+Route::any('/welcome_library', [App\Http\Controllers\User\UserController::class, 'index'])->name('welcome_library');
+Route::any('store/{id}', [App\Http\Controllers\User\UserController::class,'store'])->name('store');
 Route::get('viewbook/{id}', [App\Http\Controllers\Admin\BookissueController::class, 'book'])->name('viewbook');
-Route::post('searchbook', [App\Http\Controllers\User\UserController::class, 'search'])->name('searchbook');
 Route::get('book_history/{id}', [App\Http\Controllers\User\UserController::class, 'bookhistory'])->name('book_history');
 
 });
+
+ 

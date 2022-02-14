@@ -17,6 +17,7 @@ class CreateBookCategoriesTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('status')->comment('1 = active, 0= inactive')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -31,3 +32,4 @@ class CreateBookCategoriesTable extends Migration
         Schema::dropIfExists('book_categories');
     }
 }
+
