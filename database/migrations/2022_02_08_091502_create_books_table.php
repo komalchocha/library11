@@ -18,9 +18,11 @@ class CreateBooksTable extends Migration
             $table->string('name')->nullable();
             $table->string('auther')->nullable();
             $table->foreignId('category_id')->constrained('book_categories')->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->string('status')->comment('1 = active, 0= inactive')->nullable();
             $table->string('image')->nullable();
             $table->string('books')->nullable();
             $table->string('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

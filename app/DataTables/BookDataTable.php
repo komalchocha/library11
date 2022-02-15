@@ -41,7 +41,7 @@ class BookDataTable extends DataTable
                 return $data->getcategory ? $data->getcategory->name : '';
             })
             ->editColumn('status', function ($data) {
-                if ($data->getcategory->status == 1) {
+                if ($data->status == 1) {
                     return '<span class="badge badge-success">Active</span>';
                 } else {
                     return '<span class="badge badge-danger">Inactive</span>';

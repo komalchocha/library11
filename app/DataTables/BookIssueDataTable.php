@@ -46,7 +46,8 @@ class BookIssueDataTable extends DataTable
                 return $data->user ? $data->user->name : '';
             })
             ->editColumn('book_id', function ($data) {
-                return $data->book ? $data->book->name : '';
+                
+                return $data->name;
             })
          
             ->editColumn('fine_ammount', function ($data) {
@@ -82,7 +83,9 @@ class BookIssueDataTable extends DataTable
      */
     public function query(BookIssue $model)
     {
-        return $model->with(['user','book'])->newQuery();
+        return $model->with('user')->with(['book' => function($q){
+            $q->withTrashed();
+        }])->newQuery();
     }
 
     /**

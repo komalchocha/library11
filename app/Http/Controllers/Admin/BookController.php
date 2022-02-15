@@ -23,7 +23,6 @@ class BookController extends Controller
     }
     public function store(Bookrequest $request)
     {
-
             $file = $request->image;
             $extension = $file->getclientoriginalextension();
             $filename = rand() . '_post.' . $extension;
@@ -35,6 +34,8 @@ class BookController extends Controller
                 'image' => $filename,
                 'category_id' => $request->categorie_name,
                 'books' => $request->books,
+                'status' => '1',
+
     
             ]);
         return redirect()->route('admin.book.book_view_list');

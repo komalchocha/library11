@@ -6,6 +6,7 @@ use App\DataTables\BookCategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookcategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Book;
 use App\Models\BookCategory;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
@@ -56,6 +57,16 @@ class BookCategoryController extends Controller
     public function statuschange(Request $request)
     {
         $data = BookCategory::find($request->id);
+        $books=Book::where('category_id',$request->id)->get();
+        foreach ($books as  $book) {
+         if ($book->status == 1) {
+            $book->status = 0;
+         }else{
+             $book->status = 1;
+         }
+            $book->update();
+        
+    }
         if ($data->status == 1) {
             $data->status = 0;
         } else {
