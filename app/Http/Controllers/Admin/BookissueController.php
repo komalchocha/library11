@@ -32,8 +32,11 @@ class BookissueController extends Controller
     public function bookissue(Request $request){
 
         $data = BookIssue::find($request->id);
+          $book = BookIssue::with('book')->where('id', $request->id)->first();
+        $book->book->increment('books', 1);
         if ($data->status == 1) {
             $data->status = 2;
+            
         }
         $data->save();
         return $data;

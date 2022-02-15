@@ -101,7 +101,7 @@ class BookDataTable extends DataTable
             Column::make('category_id')->name('getcategory.name')->title('category'),
             Column::make('description'),
             Column::make('image'),
-            Column::make('books')->title('Quility'),
+            Column::make('books')->title('Quality'),
             Column::make('status'),
             Column::computed('action')
             ->exportable(false)
