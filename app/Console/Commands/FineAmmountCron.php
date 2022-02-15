@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\BookIssue;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon as SupportCarbon;
 
 class FineAmmountCron extends Command
 {
@@ -38,13 +40,19 @@ class FineAmmountCron extends Command
      */
     public function handle()
     {
-        $data = BookIssue::get(); 
-        $date = $data->created_at;
-        $calculate = (int)((strtotime($date) - strtotime($data->return_date)) / 86400);
-        $data = BookIssue::where('id', $data->id)->update([
+     $data = BookIssue::get(); 
+     foreach ($data as $date) {
+        if(($date['status'] == 1) && ($date['return_date'] < $date['created_at'])){
+         $calculate = (int)((strtotime($date) - strtotime($date['return_date'])) / 86400);
+
+         $data = BookIssue::where('id', $date['id'])->update([
             'status' => "3",
             'fine_ammount' => $calculate * 10,
         ]);
-        return $calculate * 10;
+
+    }
+    
+     }
+     
     }
 }

@@ -30,12 +30,12 @@ class BookIssue extends Model
     
     public function getcreatedAtAttribute($value)
     {
-        return date('d M, Y', strtotime($value));
+        return date('d-m-yy', strtotime($value));
     }
    
     public function getreturnDateAttribute($value)
     {
-        return date('d M,Y', strtotime($value));
+        return date('d-m-yy', strtotime($value));
     }
     
     
