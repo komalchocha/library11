@@ -28,7 +28,7 @@
                                 <div class="card-body p-0 pb-4">
                                     <h4>{{$books->book->auther}}</h4>
                                     <p>{{$books->book->description}}</p>
-                                    <span class="badge badge-primary">Returnded</span>
+                                    <button type="submit" value="{{$books->book->id}}" class="btn btn-info book_issue">Book Issue</button>
                                     @elseif($books['status'] == 3)
                                     <div class="col-lg-4 mb-4">
                                         <div class="card h-100">
@@ -50,3 +50,30 @@
                             </div>
 </section> <!-- row -->
 @endsection
+@push('page_scripts')
+
+<script>
+    $(document).on('click', '.book_issue', function() {
+        var id = $(this).val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            url: "{{route('store', $books->book->id)}}",
+            method: 'post',
+            data: {
+                id: id,
+
+            },
+            dataType: 'json',
+            success: function(data) {
+                alert(data.message);
+                location.href = "/welcome_library"
+
+            }
+        });
+
+    });
+  
+</script>
+@endpush
