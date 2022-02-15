@@ -29,12 +29,12 @@ class UpdateCategoryRequest extends FormRequest
         
         if($id){
         return [
-            'name' => 'required|unique:book_categories,name,' . $id,
+            'name' => 'required|unique:book_categories,name,NULL,deleted_at' . $id,
 
         ];
     }else{
          return [
-            'name' => 'required|unique:book_categories,name',
+            'name' => 'required|unique:book_categories,name,NULL,deleted_at',
          ];
         }
     }
