@@ -28,7 +28,7 @@
                                 <div class="card-body p-0 pb-4">
                                     <h4>{{$books->book->auther}}</h4>
                                     <p>{{$books->book->description}}</p>
-                                    <button type="submit" value="{{$books->book->id}}" class="btn btn-info book_issue">Book Issue</button>
+                                    <span class="badge badge-success">Returnded</span>
                                     @elseif($books['status'] == 3)
                                     <div class="col-lg-4 mb-4">
                                         <div class="card h-100">
@@ -79,6 +79,7 @@
             },
             dataType: 'json',
             success: function(data) {
+
                 alert(data.message);
                 location.href = "/welcome_library"
 

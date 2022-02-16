@@ -591,6 +591,7 @@ class ComposerStaticInite32cc620cd9d059d3587e0f4eceed10f
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\FineAmmountCron' => __DIR__ . '/../..' . '/app/Console/Commands/FineAmmountCron.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\DataTables\\BookCategoryDataTable' => __DIR__ . '/../..' . '/app/DataTables/BookCategoryDataTable.php',
         'App\\DataTables\\BookDataTable' => __DIR__ . '/../..' . '/app/DataTables/BookDataTable.php',
@@ -609,6 +610,7 @@ class ComposerStaticInite32cc620cd9d059d3587e0f4eceed10f
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\TestController' => __DIR__ . '/../..' . '/app/Http/Controllers/TestController.php',
         'App\\Http\\Controllers\\User\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -619,7 +621,8 @@ class ComposerStaticInite32cc620cd9d059d3587e0f4eceed10f
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
-        'App\\Http\\Requests\\BookcategoryRequest' => __DIR__ . '/../..' . '/app/Http/Requests/BookcategoryRequest.php',
+        'App\\Http\\Requests\\Bookrequest' => __DIR__ . '/../..' . '/app/Http/Requests/Bookrequest.php',
+        'App\\Http\\Requests\\UpdateCategoryRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateCategoryRequest.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
         'App\\Models\\Book' => __DIR__ . '/../..' . '/app/Models/Book.php',
         'App\\Models\\BookCategory' => __DIR__ . '/../..' . '/app/Models/BookCategory.php',

@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function  index(Request $request)
     {
-        $books=Book::with('bookissued')->get();
+        $books=Book::with('bookissue')->get();
         $bookissue=BookIssue::all();
         $book = Book::with('getcategory');
         $name = $request->input('search') ?? '';

@@ -2,25 +2,21 @@
 
 @section('content')
 <div class="container">
-
     <div class="content">
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     @if(Auth::check())
                     <div class="col-sm-6">
-
                     </div>
                 </div>
             </div>
         </div>
         <section class="content">
             <div class="container-fluid">
-
                 @csrf
                 <div class="row causes_div">
                     @foreach($books as $key => $book)
-
                     @if($book->getcategory->status == 1)
                     <div class="col-lg-4 mb-4">
                         <div class="card h-100">
@@ -33,35 +29,31 @@
                                 <h4>Author Name:{{$book->auther}}</h4>
                                 <p class="card-text" style="max-height: 45px; overflow: hidden;">{{$book->description}}</p>
                                 @if($book->books == 0 )
-                                <button type="button" class="btn btn-danger">Out Of Stack</button>
+                                    <button type="button" class="btn btn-danger">Out Of Stack</button>
                                 @else
-
-                                @php $my_order = $book->bookissued->where('user_id', auth()->user()->id)
-                                @endphp
-
-                                @if(count($my_order)== 0)
-                                <button type="submit" value="{{$book->id}}" class="btn btn-info book_issue">Book Issue</button>
-                                @else
-                                @foreach($book->bookissued as $a)
-                                @if($a['status'] == null && Auth::user()->id == $a->user_id)
-                                <span class="badge badge-success">Book issue</span>
-                                @elseif($a['status'] == 0 && Auth::user()->id == $a->user_id)
-                                <span class="badge badge-primary">Book Request</span>
-                                @elseif($a['status'] == 1 && Auth::user()->id == $a->user_id)
-                                <span class="badge badge-success">Booked</span>
-                                @elseif($a['status'] == 2 && Auth::user()->id == $a->user_id)
-                                <button type="submit" value="{{$book->id}}" class="btn btn-info book_issue">Book Issue</button>
-                                @elseif($a['status'] == 3 && Auth::user()->id == $a->user_id)
-                                <span class="badge badge-danger">Fine ${{$a['fine_ammount']}}</span>
+                                @php $my_order = $book->bookissue()->latest()->where('user_id', auth()->user()->id)->first()@endphp
+                                <div class="overlay"></div>
+                                    @if($my_order)
+                                        @if($my_order->status == 0 )
+                                        <span class="badge badge-primary">Book Request</span>
+                                        @elseif($my_order->status == 1)
+                                        <span class="badge badge-success">Booked</span>
+                                        @elseif($my_order->status == 2)
+                                        <button type="submit" value="{{$book->id}}" class="btn btn-info book_issue">Book Issue</button>
+                                        @elseif($my_order->status == 3)
+                                        <span class="badge badge-danger">Fine</span>
+                                        @else
+                                        <button type="submit" value="{{$book->id}}" class="btn btn-info book_issue">Book Issue</button>
+                                        @endif
+                                        @else
+                                        <button type="submit" value="{{$book->id}}" class="btn btn-info book_issue">Book Issue</button>
+                                        @endif
                                 @endif
-                                @endforeach
-                                @endif
-                                @endif
-                                @endif
-                            </div>
-                        </div>
+                         @endif
                     </div>
-                    @endforeach
+                </div>
+            </div>
+         @endforeach
         </section>
         @endif
     </div>
@@ -109,6 +101,7 @@
             dataType: 'json',
 
             success: function(data) {
+                $("body").addClass("loading");
 
                 var htm = "";
 

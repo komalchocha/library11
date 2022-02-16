@@ -29,8 +29,8 @@ class Bookrequest extends FormRequest
         return [
            
             'name' => [
-                    'required|NULL,deleted_at', Rule::unique('books')->where(function ($query) {
-                return $query->where('category_id', $this->categorie_name);
+                    'required', Rule::unique('books')->where(function ($query) {
+                return $query->where('category_id', $this->categorie_name)->whereNull('deleted_at');
             })
         ],
         'image' => 'required|image|mimes:jpg,png,svg',
@@ -40,8 +40,8 @@ class Bookrequest extends FormRequest
         else {
             return [
                 'name' => [
-                    'required|NULL,deleted_at', Rule::unique('books')
-                    ->where('category_id', $this->categorie_name)->whereNot('id', $this->id)
+                    'required', Rule::unique('books')
+                    ->where('category_id', $this->categorie_name)->whereNot('id', $this->id)->whereNull('deleted_at')
                 ],
                 'image' => 'required|image|mimes:jpg,png,svg',
 

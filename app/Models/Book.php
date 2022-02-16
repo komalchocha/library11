@@ -32,9 +32,5 @@ class Book extends Model
         return $this->hasMany(BookIssue::class, 'book_id', 'id');
     }
   
-    public function bookissued()
-    {
-        return $this->hasMany(BookIssue::class, 'book_id');
-    }
   
 }

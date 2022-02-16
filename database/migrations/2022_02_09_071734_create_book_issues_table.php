@@ -17,7 +17,6 @@ class CreateBookIssuesTable extends Migration
             $table->id();
             $table->integer('fine_ammount');
             $table->string('status')->comment('0 =issue,1=request,2=retunrd,3=fine')->nullable();
-            $table->string('book_status')->nullable();
             $table->date('return_date')->nullable();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->foreignId('book_id')->constrained('books')->onUpdate('cascade')->onDelete('cascade')->nullable();
@@ -35,3 +34,4 @@ class CreateBookIssuesTable extends Migration
         Schema::dropIfExists('book_issues');
     }
 }
+

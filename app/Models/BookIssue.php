@@ -15,7 +15,8 @@ class BookIssue extends Model
         'status',
         'created_at',
         'updated_at',
-        'return_date'
+        'return_date',
+        'book_status',
     ];
     protected $dates = ['created_at', 'updated_at', 'return_date'];
 
