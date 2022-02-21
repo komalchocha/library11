@@ -107,7 +107,6 @@
 
                 $.each(data.data, function(key, value) {
 
-                    // htm += ' <div class="card h-100"><h5 class="card-title">' + value.getcategory.name + '<div class="card-body"></h5><h4><div class="card-header">' + value.name + '</h4><img src="' + value.image + '" class="card-img-top" alt="Image"></div><div class="col-lg-6 mb-4 product">' + value.auther + '<div class="card h-100"></h5><p class="card-text" style="max-height: 45px; overflow: hidden;">' + value.description + '</p><button type="button" class="btn btn-info book_issue" value=' + value.id + '>Book isuue</button></div></div></div></div>'
                     htm += '<div class="col-lg-6 mb-4"><div class="card h-100"><div class="card-header"><h5 class="card-title"><a href="">' + value.name + '</a> </h5></div><img src="' + value.image + '"  class="card-img-top" alt="Image"><div class="card-body"><h4>' + value.getcategory.name + '</h4><h4>Author Name:' + value.auther + '</h4><p class="card-text" style="max-height: 45px; overflow: hidden;">' + value.description + '</p><button type="button" class="btn btn-info book_issue" value=' + value.id + '>Book isuue</button></div></div></div>'
                 });
                 if (htm) {
